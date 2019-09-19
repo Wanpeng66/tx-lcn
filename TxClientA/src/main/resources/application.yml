@@ -1,0 +1,31 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: txClientA
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://106.15.233.201:3306/itoken-service-admin
+    username: root
+    password: 123456
+
+tx-lcn:
+  ribbon:
+    loadbalancer:
+      dtx:
+        enabled: true
+  client:
+    manager-address: 127.0.0.1:9002
+logging:
+  level:
+    com:
+      codingapi:
+        txlcn: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9001/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: clienta

@@ -1,0 +1,42 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: TxManager
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://106.15.233.201:3306/itoken-service-admin
+      username: root
+      password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+  redis:
+    sentinel:
+      nodes: 106.15.233.201:26379,106.15.233.201:26380,106.15.233.201:26381
+      master: mymaster
+tx-lcn:
+  manager:
+    port: 9002
+    heart-time: 15000
+    dtx-time: 8000
+    host: 127.0.0.1
+  logger:
+    enabled: true
+    driver-class-name: ${spring.datasource.hikari.driver-class-name}
+    jdbc-url: ${spring.datasource.hikari.jdbc-url}
+    username: ${spring.datasource.hikari.username}
+    password: ${spring.datasource.hikari.password}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9001/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}:${random.int}
+
+
+
